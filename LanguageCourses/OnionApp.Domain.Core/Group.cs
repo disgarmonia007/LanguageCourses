@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LanguageCourses.Models
+namespace OnionApp.Domain.Core
 {
     public class Group
     {

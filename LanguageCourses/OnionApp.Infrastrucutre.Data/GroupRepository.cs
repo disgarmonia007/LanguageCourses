@@ -1,30 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using LanguageCourses.Models;
+using OnionApp.Domain.Core;
+using OnionApp.Domain.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LanguageCourses.Repository
+namespace OnionApp.Infrastructure.Data
 {
-    public class UserRepository : IRepository<User>
+    public class GroupRepository : IRepository<Group>
     {
         private LanguagesContext db;
 
-        public UserRepository(LanguagesContext context)
+        public GroupRepository(LanguagesContext context)
         {
             this.db = context;
         }
-        public void Create(User user)
+        public void Create(Group group)
         {
-            db.Users.Add(user);
+            db.Groups.Add(group);
         }
 
         public void Delete(int id)
         {
-            User user = db.Users.Find(id);
-            if (user != null)
-                db.Users.Remove(user);
+            Group group = db.Groups.Find(id);
+            if (group != null)
+                db.Groups.Remove(group);
         }
         private bool disposed = false;
         public virtual void Dispose(bool disposing)
@@ -43,14 +44,14 @@ namespace LanguageCourses.Repository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        public User Get(int id)
+        public Group Get(int id)
         {
-            return db.Users.Find(id);
+            return db.Groups.Find(id);
         }
 
-        public IEnumerable<User> GetList()
+        public IEnumerable<Group> GetList()
         {
-            return db.Users;
+            return db.Groups;
         }
 
         public void Save()
@@ -58,9 +59,9 @@ namespace LanguageCourses.Repository
             db.SaveChanges();
         }
 
-        public void Update(User user)
+        public void Update(Group group)
         {
-            db.Entry(user).State = EntityState.Modified;
+            db.Entry(group).State = EntityState.Modified;
         }
     }
 }

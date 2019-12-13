@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using LanguageCourses.Models;
+using OnionApp.Domain.Core;
+using OnionApp.Domain.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LanguageCourses.Repository
+namespace OnionApp.Infrastructure.Data
 {
     public class LanguageLVLRepository : IRepository<LanguageLVL>
     {

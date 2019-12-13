@@ -1,30 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using LanguageCourses.Models;
+using OnionApp.Domain.Core;
+using OnionApp.Domain.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LanguageCourses.Repository
+namespace OnionApp.Infrastructure.Data
 {
-    public class TeacherRepository : IRepository<Teacher>
+    public class LanguagesRepository : IRepository<Languages>
     {
         private LanguagesContext db;
 
-        public TeacherRepository(LanguagesContext context)
+        public LanguagesRepository(LanguagesContext context)
         {
             this.db = context;
         }
-        public void Create(Teacher teacher)
+        public void Create(Languages languages)
         {
-            db.Teachers.Add(teacher);
+            db.Languages.Add(languages);
         }
 
         public void Delete(int id)
         {
-            Teacher teacher = db.Teachers.Find(id);
-            if (teacher != null)
-                db.Teachers.Remove(teacher);
+            Languages languages = db.Languages.Find(id);
+            if (languages != null)
+                db.Languages.Remove(languages);
         }
         private bool disposed = false;
         public virtual void Dispose(bool disposing)
@@ -43,14 +44,14 @@ namespace LanguageCourses.Repository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        public Teacher Get(int id)
+        public Languages Get(int id)
         {
-            return db.Teachers.Find(id);
+            return db.Languages.Find(id);
         }
 
-        public IEnumerable<Teacher> GetList()
+        public IEnumerable<Languages> GetList()
         {
-            return db.Teachers;
+            return db.Languages;
         }
 
         public void Save()
@@ -58,9 +59,9 @@ namespace LanguageCourses.Repository
             db.SaveChanges();
         }
 
-        public void Update(Teacher teacher)
+        public void Update(Languages languages)
         {
-            db.Entry(teacher).State = EntityState.Modified;
+            db.Entry(languages).State = EntityState.Modified;
         }
     }
 }

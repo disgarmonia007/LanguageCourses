@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using LanguageCourses.Models;
+using OnionApp.Domain.Core;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace LanguageCourses.Controllers
 {
@@ -33,7 +36,29 @@ namespace LanguageCourses.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new OnionApp.Domain.Core.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        private readonly UnitOfWork unit;
+
+        public HomeController(UnitOfWork unit)
+        {
+            this.unit = unit;
+        }
+        public async Task<IActionResult> Indexx(int page = 1)
+        {
+            int pageSize = 3;   // количество элементов на странице
+
+            IQueryable<User> source = (IQueryable<User>)unit.Users.GetList().ToList();
+            var count = await source.CountAsync();
+            var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Users = items
+            };
+            return View(viewModel);
         }
     }
 }

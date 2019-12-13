@@ -7,32 +7,27 @@
     <title>@ViewData["Title"] - WebApplication4</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/style.css" />
     </environment>
 
 </head>
 <body>
-    <h2>Регистрация нового пользователя</h2>
-    <form method="post" asp-controller="Account" asp-action="Register">
+    <form id="msform" method="post" asp-controller="Account" asp-action="Register">
         <div asp-validation-summary="ModelOnly"></div>
-        <div>
-            <label asp-for="Email"></label><br />
-            <input asp-for="Email" />
+
+        <!-- fieldsets -->
+        <fieldset>
+            <h2 class="fs-title">Регистрация нового пользователя</h2>
+            <input asp-for="Email" placeholder="Email" />
             <span asp-validation-for="Email"></span>
-        </div>
-        <div>
-            <label asp-for="Password"></label><br />
-            <input asp-for="Password" />
+            <input asp-for="Password" placeholder="Password" />
             <span asp-validation-for="Password"></span>
-        </div>
-        <div>
-            <label asp-for="PasswordConfirm"></label><br />
-            <input asp-for="PasswordConfirm" />
+            <input asp-for="PasswordConfirm" placeholder="Confirm Password" />
             <span asp-validation-for="PasswordConfirm"></span>
-        </div>
-        <div>
-            <input type="submit" value="Регистрация" />
-        </div>
+            <div>
+                <input class="action-button" type="submit" value="Регистрация" />
+            </div>
+        </fieldset>
     </form>
 </body>
 </html>

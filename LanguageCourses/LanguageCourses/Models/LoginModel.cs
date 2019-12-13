@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace LanguageCourses.Models
 {
-    public class LanguageLVL
+    public class LoginModel
     {
-        string level { get; set; }
-        int id { get; set; }
-        public int languageId { get; set; }
-       
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
     }
 }

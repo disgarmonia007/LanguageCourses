@@ -1,35 +1,21 @@
 ﻿using System;
-using LanguageCourses.Models;
+using OnionApp.Domain.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LanguageCourses.Repository;
+using OnionApp.Infrastructure.Data;
 
 namespace LanguageCourses.Controllers
 {
     public class UnitOfWork : IDisposable
     {
         private LanguagesContext db = new LanguagesContext();
-        private AdminRepository adminRepository;
         private GroupRepository groupRepository;
         private LanguageLVLRepository languageLVLRepository;
         private LanguagesRepository languagesRepository;
         private TeacherRepository teacherRepository;
         private UserRepository userRepository;
-        public AdminRepository Admins
-        {
-            get
-            {
-                if (adminRepository == null)
-                {
-                    adminRepository = new AdminRepository(db);
-                    return adminRepository;
-                }
-                else
-                    return adminRepository;
-            }
-
-        }
+    
         public GroupRepository Groups
         {
             get

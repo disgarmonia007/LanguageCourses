@@ -1,30 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using LanguageCourses.Models;
+using OnionApp.Domain.Core;
+using OnionApp.Domain.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LanguageCourses.Repository
+namespace OnionApp.Infrastructure.Data
 {
-    public class AdminRepository : IRepository<Admin>
+    public class TeacherRepository : IRepository<Teacher>
     {
         private LanguagesContext db;
 
-        public AdminRepository(LanguagesContext context)
+        public TeacherRepository(LanguagesContext context)
         {
             this.db = context;
         }
-        public void Create(Admin admin)
+        public void Create(Teacher teacher)
         {
-            db.Admins.Add(admin);
+            db.Teachers.Add(teacher);
         }
 
         public void Delete(int id)
         {
-            Admin admin = db.Admins.Find(id);
-            if (admin != null)
-                db.Admins.Remove(admin);
+            Teacher teacher = db.Teachers.Find(id);
+            if (teacher != null)
+                db.Teachers.Remove(teacher);
         }
         private bool disposed = false;
         public virtual void Dispose(bool disposing)
@@ -43,14 +44,14 @@ namespace LanguageCourses.Repository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        public Admin Get(int id)
+        public Teacher Get(int id)
         {
-            return db.Admins.Find(id);
+            return db.Teachers.Find(id);
         }
 
-        public IEnumerable<Admin> GetList()
+        public IEnumerable<Teacher> GetList()
         {
-            return db.Admins;
+            return db.Teachers;
         }
 
         public void Save()
@@ -58,9 +59,9 @@ namespace LanguageCourses.Repository
             db.SaveChanges();
         }
 
-        public void Update(Admin admin)
+        public void Update(Teacher teacher)
         {
-            db.Entry(admin).State = EntityState.Modified;
+            db.Entry(teacher).State = EntityState.Modified;
         }
     }
 }

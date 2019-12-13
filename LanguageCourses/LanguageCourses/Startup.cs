@@ -16,6 +16,8 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
 using LanguageCourses.Models;
+using OnionApp.Domain.Core;
+using LanguageCourses.Controllers;
 
 namespace LanguageCourses
 {
@@ -45,6 +47,7 @@ namespace LanguageCourses
             services.AddDbContext<LanguagesContext>(options => options.UseSqlServer(connection));
 
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<LanguagesContext>();
+            services.AddScoped<UnitOfWork>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

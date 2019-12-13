@@ -1,30 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using LanguageCourses.Models;
+using OnionApp.Domain.Core;
+using OnionApp.Domain.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LanguageCourses.Repository
+namespace OnionApp.Infrastructure.Data
 {
-    public class LanguagesRepository : IRepository<Languages>
+    public class UserRepository : IRepository<User>
     {
         private LanguagesContext db;
 
-        public LanguagesRepository(LanguagesContext context)
+        public UserRepository(LanguagesContext context)
         {
             this.db = context;
         }
-        public void Create(Languages languages)
+        public void Create(User user)
         {
-            db.Languages.Add(languages);
+            db.Users.Add(user);
         }
 
         public void Delete(int id)
         {
-            Languages languages = db.Languages.Find(id);
-            if (languages != null)
-                db.Languages.Remove(languages);
+            User user = db.Users.Find(id);
+            if (user != null)
+                db.Users.Remove(user);
         }
         private bool disposed = false;
         public virtual void Dispose(bool disposing)
@@ -43,14 +44,14 @@ namespace LanguageCourses.Repository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        public Languages Get(int id)
+        public User Get(int id)
         {
-            return db.Languages.Find(id);
+            return db.Users.Find(id);
         }
 
-        public IEnumerable<Languages> GetList()
+        public IEnumerable<User> GetList()
         {
-            return db.Languages;
+            return db.Users;
         }
 
         public void Save()
@@ -58,9 +59,9 @@ namespace LanguageCourses.Repository
             db.SaveChanges();
         }
 
-        public void Update(Languages languages)
+        public void Update(User user)
         {
-            db.Entry(languages).State = EntityState.Modified;
+            db.Entry(user).State = EntityState.Modified;
         }
     }
 }

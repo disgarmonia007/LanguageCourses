@@ -1,4 +1,7 @@
 ﻿@model LanguageCourses.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
 
 <html>
 <head>
@@ -12,24 +15,38 @@
 </head>
 <body>
 
-  
-        
+
+
     <form id="msform" method="post" asp-controller="Account" asp-action="Register">
         <div asp-validation-summary="ModelOnly"></div>
 
         <!-- fieldsets -->
         <fieldset>
             <h2 class="fs-title">Регистрация нового пользователя</h2>
-            <input asp-for="Email"  placeholder="Email" />
+            <input asp-for="Email" placeholder="Email" />
             <span asp-validation-for="Email"></span>
-            <input asp-for="Password"  placeholder="Password" />
+            <input asp-for="Password" placeholder="Password" />
             <span asp-validation-for="Password"></span>
             <input asp-for="PasswordConfirm" placeholder="Confirm Password" />
             <span asp-validation-for="PasswordConfirm"></span>
             <div>
-                <input class="action-button" type="submit" value="Регистрация"/>
+                <input class="action-button" type="submit" value="Регистрация" />
             </div>
         </fieldset>
     </form>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>@User.Identity.Name</p>
+
+        <form method="post" asp-controller="Account" asp-action="LogOff">
+            <input type="submit" value="Выход" />
+        </form>
+    }
+    else
+    {
+        <a asp-controller="Account" asp-action="Login">Вход</a>
+        <a asp-controller="Account" asp-action="Register">Регистрация</a>
+    }
 </body>
 </html>
